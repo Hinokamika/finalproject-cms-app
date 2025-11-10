@@ -1,5 +1,6 @@
 "use client";
 import { Modal, Form, Input, Select, Button, notification } from "antd";
+import UserSelect from "@/lib/components/controls/UserSelect";
 import { useEffect } from "react";
 
 type Props = {
@@ -53,7 +54,9 @@ export default function RelaxPlanModal({ open, onClose, initialValues, onSuccess
       maskClosable={false}
     >
       <Form layout="vertical" form={form}>
-        <Form.Item name="user_id" label="User ID (UUID)"><Input /></Form.Item>
+        <Form.Item name="user_id" label="User">
+          <UserSelect />
+        </Form.Item>
         <Form.Item name="title" label="Title" rules={[{ required: true }]}><Input /></Form.Item>
         <Form.Item name="description" label="Description"><Input.TextArea rows={3} /></Form.Item>
         <Form.Item name="relaxation_type" label="Type"><Select allowClear options={["breathing","meditation","yoga","other"].map(v=>({value:v}))} /></Form.Item>

@@ -7,6 +7,7 @@ import { EditOutlined, DeleteOutlined, PlusOutlined, ReloadOutlined } from "@ant
 import MealPlanModal from "@/lib/components/modals/MealPlanModal";
 import dayjs from "dayjs";
 import useUserNames from "@/lib/components/hooks/useUserNames";
+import UserSelect from "@/lib/components/controls/UserSelect";
 
 type Rec = any;
 
@@ -114,7 +115,7 @@ export default function MealPlansTable() {
             />
             <Button icon={<SearchOutlined />} onClick={()=> setPage(1)}>Search</Button>
           </Space.Compact>
-          <Input placeholder="User ID" allowClear style={{ width: 220 }} onChange={(e)=> setFilters((f)=>({ ...f, user_id: e.target.value || undefined }))} />
+          <UserSelect style={{ width: 240 }} value={filters.user_id as string | undefined} onChange={(v)=> setFilters((f)=> ({ ...f, user_id: v || undefined }))} />
           <DatePicker.RangePicker onChange={(values) => {
             if (!values) { setFilters((f)=> ({ ...f, start_date: undefined, end_date: undefined })); return; }
             setFilters((f)=> ({ ...f, start_date: values[0]?.toISOString(), end_date: values[1]?.toISOString() }));

@@ -1,5 +1,6 @@
 "use client";
 import { Modal, Form, Input, Select, Button, notification } from "antd";
+import UserSelect from "@/lib/components/controls/UserSelect";
 import { useEffect } from "react";
 
 type Props = {
@@ -53,7 +54,9 @@ export default function ChatMessageModal({ open, onClose, initialValues, onSucce
       maskClosable={false}
     >
       <Form layout="vertical" form={form}>
-        <Form.Item name="user_id" label="User ID (UUID)"><Input /></Form.Item>
+        <Form.Item name="user_id" label="User">
+          <UserSelect />
+        </Form.Item>
         <Form.Item name="role" label="Role"><Select options={[{ value: "user" }, { value: "assistant" }]} /></Form.Item>
         <Form.Item name="content" label="Content" rules={[{ required: true }]}><Input.TextArea rows={4} /></Form.Item>
       </Form>

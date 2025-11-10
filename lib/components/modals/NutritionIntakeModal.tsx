@@ -1,5 +1,6 @@
 "use client";
 import { Modal, Form, Input, InputNumber, DatePicker, Button, notification } from "antd";
+import UserSelect from "@/lib/components/controls/UserSelect";
 import { useEffect } from "react";
 import dayjs from "dayjs";
 
@@ -59,7 +60,9 @@ export default function NutritionIntakeModal({ open, onClose, initialValues, onS
       width={720}
     >
       <Form layout="vertical" form={form}>
-        <Form.Item name="user_id" label="User ID (UUID)"><Input /></Form.Item>
+        <Form.Item name="user_id" label="User">
+          <UserSelect />
+        </Form.Item>
         <Form.Item name="bucket_date" label="Date"><DatePicker className="w-full" /></Form.Item>
         <div className="grid grid-cols-2 gap-3">
           <Form.Item name="energy_kcal" label="Energy (kcal)"><InputNumber className="w-full" /></Form.Item>

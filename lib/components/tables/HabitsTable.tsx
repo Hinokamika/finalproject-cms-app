@@ -6,6 +6,7 @@ import { EditOutlined, DeleteOutlined, PlusOutlined, ReloadOutlined } from "@ant
 import HabitModal from "@/lib/components/modals/HabitModal";
 import dayjs from "dayjs";
 import useUserNames from "@/lib/components/hooks/useUserNames";
+import UserSelect from "@/lib/components/controls/UserSelect";
 
 type Rec = any;
 
@@ -104,7 +105,7 @@ export default function HabitsTable() {
     <div className="bg-white p-4 rounded-lg shadow-sm">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-3">
         <div className="flex gap-2 items-center flex-wrap">
-          <Input placeholder="User ID" allowClear style={{ width: 220 }} onChange={(e)=> setFilters((f)=>({ ...f, user_id: e.target.value || undefined }))} />
+          <UserSelect style={{ width: 240 }} value={filters.user_id as string | undefined} onChange={(v)=> setFilters((f)=> ({ ...f, user_id: v || undefined }))} />
           <DatePicker.RangePicker onChange={(values) => {
             if (!values) { setFilters((f)=> ({ ...f, start_date: undefined, end_date: undefined })); return; }
             setFilters((f)=> ({ ...f, start_date: values[0]?.format("YYYY-MM-DD"), end_date: values[1]?.format("YYYY-MM-DD") }));

@@ -16,11 +16,10 @@ function titleFromPath(path: string) {
 export default function HeaderBar() {
   const pathname = usePathname();
   return (
-    <Header style={{ background: "#fff", padding: "0 16px", borderBottom: "1px solid #f0f0f0" }}>
+    <Header style={{ background: "#fff", padding: "16px 16px", borderBottom: "1px solid #f0f0f0" }}>
       <Typography.Title level={4} style={{ margin: 0 }}>
         {titleFromPath(pathname)}
       </Typography.Title>
     </Header>
   );
 }
-

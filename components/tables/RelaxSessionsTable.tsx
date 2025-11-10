@@ -1,5 +1,6 @@
 "use client";
 import { Table, Space, Popconfirm, Tooltip, Button, Input, DatePicker, notification } from "antd";
+import UserSelect from "@/lib/components/controls/UserSelect";
 import type { ColumnsType } from "antd/es/table";
 import { useEffect, useMemo, useState } from "react";
 import { EditOutlined, DeleteOutlined, PlusOutlined, ReloadOutlined } from "@ant-design/icons";
@@ -99,7 +100,7 @@ export default function RelaxSessionsTable() {
     <div className="bg-white p-4 rounded-lg shadow-sm">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-3">
         <div className="flex gap-2 items-center flex-wrap">
-          <Input placeholder="User ID" allowClear style={{ width: 220 }} onChange={(e)=> setFilters((f)=>({ ...f, user_id: e.target.value || undefined }))} />
+          <UserSelect style={{ width: 240 }} value={filters.user_id as string | undefined} onChange={(v)=> setFilters((f)=> ({ ...f, user_id: v || undefined }))} />
           <DatePicker.RangePicker showTime onChange={(values) => {
             if (!values) { setFilters((f)=> ({ ...f, start_date: undefined, end_date: undefined })); return; }
             setFilters((f)=> ({ ...f, start_date: values[0]?.toISOString(), end_date: values[1]?.toISOString() }));

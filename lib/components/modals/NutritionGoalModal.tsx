@@ -1,5 +1,6 @@
 "use client";
 import { Modal, Form, Input, InputNumber, Select, Button, notification } from "antd";
+import UserSelect from "@/lib/components/controls/UserSelect";
 import { useEffect } from "react";
 
 type Props = {
@@ -53,7 +54,9 @@ export default function NutritionGoalModal({ open, onClose, initialValues, onSuc
       maskClosable={false}
     >
       <Form layout="vertical" form={form}>
-        <Form.Item name="user_id" label="User ID (UUID)"><Input /></Form.Item>
+        <Form.Item name="user_id" label="User">
+          <UserSelect />
+        </Form.Item>
         <Form.Item name="goal" label="Goal"><Select allowClear options={["lose","maintain","gain"].map(v=>({value:v}))} /></Form.Item>
         <Form.Item name="delta_percent" label="Delta %"><InputNumber className="w-full" /></Form.Item>
         <div className="grid grid-cols-2 gap-3">

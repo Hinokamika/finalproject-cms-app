@@ -2,6 +2,7 @@
 import { Modal, Form, Input, InputNumber, DatePicker, Button, notification } from "antd";
 import { useEffect } from "react";
 import dayjs from "dayjs";
+import UserSelect from "@/lib/components/controls/UserSelect";
 
 type Props = {
   open: boolean;
@@ -63,7 +64,9 @@ export default function RelaxSessionModal({ open, onClose, initialValues, onSucc
       maskClosable={false}
     >
       <Form layout="vertical" form={form}>
-        <Form.Item name="user_id" label="User ID (UUID)"><Input /></Form.Item>
+        <Form.Item name="user_id" label="User">
+          <UserSelect />
+        </Form.Item>
         <Form.Item name="started_at" label="Started At"><DatePicker showTime className="w-full" /></Form.Item>
         <div className="grid grid-cols-2 gap-3">
           <Form.Item name="minutes" label="Minutes"><InputNumber className="w-full" /></Form.Item>
@@ -74,3 +77,4 @@ export default function RelaxSessionModal({ open, onClose, initialValues, onSucc
     </Modal>
   );
 }
+

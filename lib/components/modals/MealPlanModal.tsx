@@ -1,5 +1,6 @@
 "use client";
 import { Modal, Form, Input, InputNumber, Button, notification } from "antd";
+import UserSelect from "@/lib/components/controls/UserSelect";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -71,7 +72,9 @@ export default function MealPlanModal({ open, onClose, initialValues, onSuccess 
       width={720}
     >
       <Form layout="vertical" form={form}>
-        <Form.Item name="user_id" label="User ID (UUID)"><Input /></Form.Item>
+        <Form.Item name="user_id" label="User">
+          <UserSelect />
+        </Form.Item>
         <div className="grid grid-cols-2 gap-3">
           <Form.Item name="day_index" label="Day Index"><InputNumber className="w-full" /></Form.Item>
           <Form.Item name="day_label" label="Day Label"><Input /></Form.Item>

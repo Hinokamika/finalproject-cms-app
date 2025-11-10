@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { Table, Space, Popconfirm, Tooltip, Button, Input, DatePicker, notification } from "antd";
 import type { ColumnsType } from "antd/es/table";
@@ -6,6 +7,7 @@ import { EditOutlined, DeleteOutlined, PlusOutlined, ReloadOutlined } from "@ant
 import NutritionGoalModal from "@/lib/components/modals/NutritionGoalModal";
 import dayjs from "dayjs";
 import useUserNames from "@/lib/components/hooks/useUserNames";
+import UserSelect from "@/lib/components/controls/UserSelect";
 
 type Rec = any;
 
@@ -76,11 +78,22 @@ export default function NutritionGoalsTable() {
 
   const columns: ColumnsType<Rec> = [
     { title: "ID", dataIndex: "id", width: 80 },
-    { title: "User", dataIndex: "user_id", width: 220, render: (v) => (v ? (userMap[v] || v) : "") },
-    { title: "Goal", dataIndex: "goal", width: 120 },
-    { title: "Delta %", dataIndex: "delta_percent", width: 120 },
+    {
+      title: "User",
+      dataIndex: "user_id",
+      width: 220,
+      render: (v) => (v ? userMap[v] || v : ""),
+    },
     { title: "Calories", dataIndex: "calories_target", width: 120 },
-    { title: "Created", dataIndex: "created_at", render: (v) => dayjs(v).format("YYYY-MM-DD HH:mm"), width: 180 },
+    { title: "Carbs", dataIndex: "carbs_g", width: 120 },
+    { title: "Protein", dataIndex: "protein_g", width: 120 },
+    { title: "Fat", dataIndex: "fat_g", width: 120 },
+    {
+      title: "Created",
+      dataIndex: "created_at",
+      render: (v) => dayjs(v).format("YYYY-MM-DD HH:mm"),
+      width: 180,
+    },
     {
       title: "Actions",
       key: "actions",
@@ -88,9 +101,18 @@ export default function NutritionGoalsTable() {
       render: (_, record) => (
         <Space>
           <Tooltip title="Edit">
-            <Button icon={<EditOutlined />} onClick={() => { setEditing(record); setModalOpen(true); }} />
+            <Button
+              icon={<EditOutlined />}
+              onClick={() => {
+                setEditing(record);
+                setModalOpen(true);
+              }}
+            />
           </Tooltip>
-          <Popconfirm title="Delete this item?" onConfirm={() => onDelete(record.id)}>
+          <Popconfirm
+            title="Delete this item?"
+            onConfirm={() => onDelete(record.id)}
+          >
             <Button danger icon={<DeleteOutlined />} />
           </Popconfirm>
         </Space>
@@ -102,7 +124,7 @@ export default function NutritionGoalsTable() {
     <div className="bg-white p-4 rounded-lg shadow-sm">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-3">
         <div className="flex gap-2 items-center flex-wrap">
-          <Input placeholder="User ID" allowClear style={{ width: 220 }} onChange={(e)=> setFilters((f)=>({ ...f, user_id: e.target.value || undefined }))} />
+          <UserSelect style={{ width: 240 }} value={filters.user_id as string | undefined} onChange={(v)=> setFilters((f)=> ({ ...f, user_id: v || undefined }))} />
           <DatePicker.RangePicker onChange={(values) => {
             if (!values) { setFilters((f)=> ({ ...f, start_date: undefined, end_date: undefined })); return; }
             setFilters((f)=> ({ ...f, start_date: values[0]?.toISOString(), end_date: values[1]?.toISOString() }));

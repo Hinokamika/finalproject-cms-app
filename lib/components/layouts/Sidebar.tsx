@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { Layout, Menu, Button } from "antd";
+import { Layout, Menu, Button, Tooltip } from "antd";
 import {
   HomeOutlined,
   UserOutlined,
@@ -32,7 +33,6 @@ export default function Sidebar() {
       { key: "/nutrition-intake", icon: <FundOutlined />, label: "Nutrition Intake" },
       { key: "/nutrition-goals", icon: <AimOutlined />, label: "Nutrition Goals" },
       { key: "/habits", icon: <FundOutlined />, label: "Habits" },
-      { key: "/relax-sessions", icon: <ClockCircleOutlined />, label: "Relax Sessions" },
       { key: "/chat-messages", icon: <MessageOutlined />, label: "Chat Messages" },
     ],
     []
@@ -53,15 +53,35 @@ export default function Sidebar() {
   };
 
   return (
-    <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed} breakpoint="lg" width={240} style={{ background: "#fff" }}>
-      <div className="h-16 flex items-center justify-center text-base font-semibold border-b">Fitness CMS</div>
-      <Menu mode="inline" items={items} onClick={onClick} selectedKeys={selectedKeys} style={{ border: 0 }} />
-      <div className="mt-auto p-3">
-        <Button icon={<LogoutOutlined />} danger block onClick={handleLogout}>
-          Logout
-        </Button>
+    <Sider
+      collapsible
+      collapsed={collapsed}
+      onCollapse={setCollapsed}
+      breakpoint="lg"
+      width={240}
+      style={{ background: "#fff", display: "flex", flexDirection: "column" }}
+    >
+      <div
+        className="h-16 flex items-center justify-center text-base font-semibold text-black px-2 truncate cursor-pointer"
+        onClick={() => router.push("/")}
+        title="Fitness CMS"
+      >
+        {collapsed ? "CMS" : "Fitness CMS"}
+      </div>
+      <div style={{ flex: 1, overflow: "auto" }}>
+        <Menu mode="inline" items={items} onClick={onClick} selectedKeys={selectedKeys} style={{ border: 0 }} />
+      </div>
+      <div className={`p-3 ${collapsed ? "flex justify-center" : ""}`} style={{ marginTop: "auto" }}>
+        {collapsed ? (
+          <Tooltip title="Logout">
+            <Button icon={<LogoutOutlined />} danger shape="circle" onClick={handleLogout} />
+          </Tooltip>
+        ) : (
+          <Button icon={<LogoutOutlined />} danger block onClick={handleLogout}>
+            Logout
+          </Button>
+        )}
       </div>
     </Sider>
   );
 }
-

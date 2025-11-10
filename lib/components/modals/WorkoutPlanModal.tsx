@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { Modal, Form, Input, InputNumber, Select, Switch, Button, notification } from "antd";
+import UserSelect from "@/lib/components/controls/UserSelect";
 import { useEffect } from "react";
 
 type Props = {
@@ -54,7 +55,9 @@ export default function WorkoutPlanModal({ open, onClose, initialValues, onSucce
       maskClosable={false}
     >
       <Form layout="vertical" form={form}>
-        <Form.Item name="user_id" label="User ID (UUID)"><Input /></Form.Item>
+        <Form.Item name="user_id" label="User">
+          <UserSelect />
+        </Form.Item>
         <Form.Item name="exercise_name" label="Exercise Name" rules={[{ required: true }]}><Input /></Form.Item>
         <Form.Item name="description" label="Description"><Input.TextArea rows={3} /></Form.Item>
         <div className="grid grid-cols-2 gap-3">
