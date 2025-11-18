@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { Table, Space, Popconfirm, Tooltip, Button, Input, DatePicker, notification } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
