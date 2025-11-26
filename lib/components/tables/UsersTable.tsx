@@ -71,6 +71,11 @@ export default function UsersTable() {
     load();
   }, [queryString]);
 
+  useEffect(() => {
+    console.log("UsersTable data:", data);
+    console.log("UsersTable count:", count);
+  }, [data, count]);
+
   const onDelete = async (id: number) => {
     try {
       const res = await fetch(`/api/users/${id}`, { method: "DELETE" });

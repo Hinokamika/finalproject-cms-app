@@ -9,7 +9,10 @@ export function middleware(req: NextRequest) {
     pathname.startsWith("/public") ||
     pathname === "/favicon.ico";
 
-  const isAuthRoute = pathname.startsWith("/api/auth/") || pathname === "/login";
+  const isAuthRoute =
+    pathname.startsWith("/api/auth/") ||
+    pathname === "/login" ||
+    pathname === "/api/debug-env";
   if (isAsset || isAuthRoute) return NextResponse.next();
 
   // Protect everything else (pages + API)
@@ -18,7 +21,10 @@ export function middleware(req: NextRequest) {
     // Redirect to login for pages; allow API routes to 401
     if (!pathname.startsWith("/api/")) {
       const loginUrl = new URL("/login", req.url);
-      loginUrl.searchParams.set("redirect", req.nextUrl.pathname + req.nextUrl.search);
+      loginUrl.searchParams.set(
+        "redirect",
+        req.nextUrl.pathname + req.nextUrl.search
+      );
       return NextResponse.redirect(loginUrl);
     }
     return new NextResponse("Unauthorized", { status: 401 });
